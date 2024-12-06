@@ -1,5 +1,5 @@
-# Use the official Node.js image as the base image
-FROM node:14
+# Use the Node.js LTS image
+FROM node:18-alpine
 
 # Set the working directory
 WORKDIR /app
@@ -13,8 +13,11 @@ RUN npm install
 # Copy the rest of the application code
 COPY . .
 
-# Expose the port the app runs on
+# Build the application
+RUN npm run build
+
+# Expose the port Next.js runs on
 EXPOSE 3000
 
-# Command to run the application
-CMD ["node", "app.js"]
+# Run the application
+CMD ["npm", "start"]
